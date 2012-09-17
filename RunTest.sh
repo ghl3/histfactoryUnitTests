@@ -3,12 +3,35 @@
 #ROOTVERSIONS="root-histfactory-dev root-roostats-dev root-roostats-branch root-5.32.00-patches root-trunk"
 ROOTVERSIONS="root-roostats-git root-roostats-branch root-trunk"
 
-TESTS="example example_Expression example_params example_Ultimate example_ShapeSys example_ShapeSys2D"
+XMLFILES="example example_Expression example_params example_Ultimate example_ShapeSys example_ShapeSys2D"
 PYTHONSCRIPTS="example.py"
 CPPSCRIPTS="example.C"
 
 
+RUNCOMMANDS=""
+for xml in $XMLFILES
+do
+    RUNCOMMANDS="$RUNCOMMANDS hist2workspace $xml;"
+done
+for script in $PYTHONSCRIPTS
+do
+    RUNCOMMANDS="$RUNCOMMANDS python scripts/$script; "
+done
+for script in $CPPSCRIPTS
+do
+    RUNCOMMANDS="$RUNCOMMANDS root -b scripts/$script++; "
+done
 
+IFS=';' read -ra ADDR <<< "$RUNCOMMANDS"
+for i in "${ADDR[@]}"; do
+    echo $i
+done
+exit
+
+
+
+
+exit
 
 # Create the logs
 for build in $ROOTVERSIONS
@@ -16,7 +39,8 @@ do
     for version in $TESTS
     do
 	source /usr/local/root_versions/${build}/bin/thisroot.sh
-	/usr/local/root_versions/${build}/bin/hist2workspace config/${version}.xml 2>&1 | tee logs/${build}_${version}.log 
+	#/usr/local/root_versions/${build}/bin/hist2workspace config/${version}.xml 2>&1 | tee logs/${build}_${version}.log 
+	hist2workspace config/${version}.xml 2>&1 | tee logs/${build}_${version}.log 
 	# Now, get the reduced version of the log
 	sed -n '/**MIGRAD/,/**MINOS:/p' logs/${build}_${version}.log >logs/${build}_${version}_reduced.log
     done
