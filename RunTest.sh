@@ -1,11 +1,15 @@
 
-
-#ROOTVERSIONS="root-histfactory-dev root-roostats-dev root-roostats-branch root-5.32.00-patches root-trunk"
+# The root versions to compare
 ROOTVERSIONS="root-roostats-git root-roostats-branch root-trunk"
 
+# The Tests to run
 XMLFILES="example example_Expression example_params example_Ultimate example_ShapeSys example_ShapeSys2D"
 PYTHONSCRIPTS="example"
 CPPSCRIPTS="example"
+
+#
+# The rest is done automatically
+#
 
 # Make a list of titles for the various tests
 TESTS=()
@@ -26,15 +30,15 @@ done
 RUNCOMMANDS=()
 for xml in $XMLFILES
 do
-    RUNCOMMANDS+=("hist2workspace $xml")
+    RUNCOMMANDS+=("hist2workspace config/${xml}.xml")
 done
 for script in $PYTHONSCRIPTS
 do
-    RUNCOMMANDS+=("python scripts/$script.py")
+    RUNCOMMANDS+=("python scripts/${script}.py")
 done
 for script in $CPPSCRIPTS
 do
-    RUNCOMMANDS+=("root -b scripts/$script.C++")
+    RUNCOMMANDS+=("root -b scripts/${script}.C++")
 done
 
 
@@ -43,18 +47,25 @@ for ((i = 0; i < ${#TESTS[@]}; i++)); do
   echo "${TESTS[$i]} ${RUNCOMMANDS[$i]}"
 done
 
+for version in "${TESTS[@]}"
+do
+    echo $version
+done
+
 exit
 
 # Create the logs
 for build in $ROOTVERSIONS
 do
-    for version in $TESTS
+    #for version in $TESTS
+    for ((i = 0; i < ${#TESTS[@]}; i++)); do
     do
 	source /usr/local/root_versions/${build}/bin/thisroot.sh
 	#/usr/local/root_versions/${build}/bin/hist2workspace config/${version}.xml 2>&1 | tee logs/${build}_${version}.log 
-	hist2workspace config/${version}.xml 2>&1 | tee logs/${build}_${version}.log 
+	#hist2workspace config/${TESTS[$i]}.xml 2>&1 | tee logs/${build}_${TESTS[$i]}.log 
+	${RUNCOMMANDS[$i]}  2>&1 | tee logs/${build}_${TESTS[$i]}.log 
 	# Now, get the reduced version of the log
-	sed -n '/**MIGRAD/,/**MINOS:/p' logs/${build}_${version}.log >logs/${build}_${version}_reduced.log
+	sed -n '/**MIGRAD/,/**MINOS:/p' logs/${build}_${TESTS[$i]}.log >logs/${build}_${TESTS[$i]}_reduced.log
     done
 done
 
@@ -73,7 +84,8 @@ do
 	    continue
 	fi
 
-	for version in $TESTS
+	#for version in $TESTS
+	for version in $TESTS "${TESTS[@]}"
 	do
 	    logA=logs/${buildA}_${version}_reduced.log
 	    logB=logs/${buildB}_${version}_reduced.log
@@ -90,8 +102,3 @@ do
 	done
     done
 done
-
-
-
-
-
