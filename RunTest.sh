@@ -4,9 +4,59 @@
 ROOTVERSIONS="root-roostats-git root-roostats-branch root-trunk"
 
 XMLFILES="example example_Expression example_params example_Ultimate example_ShapeSys example_ShapeSys2D"
-PYTHONSCRIPTS="example.py"
-CPPSCRIPTS="example.C"
+PYTHONSCRIPTS="example"
+CPPSCRIPTS="example"
 
+# Make a list of titles for the various tests
+TESTS=()
+for xml in $XMLFILES
+do
+    TESTS+=("$xml")
+done
+for script in $PYTHONSCRIPTS
+do
+    TESTS+=("${script}_py")
+done
+for script in $CPPSCRIPTS
+do
+    TESTS+=("${script}_C")
+done
+
+#$XMLFILES $PYTHONSCRIPTS $CPPSCRIPTS)
+#TESTS=($XMLFILES $PYTHONSCRIPTS $CPPSCRIPTS)
+
+# Create the commands used to run the tests
+RUNCOMMANDS=()
+for xml in $XMLFILES
+do
+    RUNCOMMANDS+=("hist2workspace $xml")
+done
+for script in $PYTHONSCRIPTS
+do
+    RUNCOMMANDS+=("python scripts/$script.py")
+done
+for script in $CPPSCRIPTS
+do
+    RUNCOMMANDS+=("root -b scripts/$script.C++")
+done
+
+#for xml in $XMLFILES
+#do
+#    RUNCOMMANDS+=("bob $xml")
+#done
+
+for i in "${RUNCOMMANDS[@]}"
+do
+    echo $i
+done
+
+for ((i = 0; i < ${#TESTS[@]}; i++)); do
+  echo "${TESTS[$i]} ${RUNCOMMANDS[$i]}"
+done
+
+
+
+exit
 
 RUNCOMMANDS=""
 for xml in $XMLFILES
@@ -26,6 +76,8 @@ IFS=';' read -ra ADDR <<< "$RUNCOMMANDS"
 for i in "${ADDR[@]}"; do
     echo $i
 done
+
+
 exit
 
 
