@@ -22,9 +22,6 @@ do
     TESTS+=("${script}_C")
 done
 
-#$XMLFILES $PYTHONSCRIPTS $CPPSCRIPTS)
-#TESTS=($XMLFILES $PYTHONSCRIPTS $CPPSCRIPTS)
-
 # Create the commands used to run the tests
 RUNCOMMANDS=()
 for xml in $XMLFILES
@@ -40,48 +37,11 @@ do
     RUNCOMMANDS+=("root -b scripts/$script.C++")
 done
 
-#for xml in $XMLFILES
-#do
-#    RUNCOMMANDS+=("bob $xml")
-#done
 
-for i in "${RUNCOMMANDS[@]}"
-do
-    echo $i
-done
-
+# The example loop over test names and commands
 for ((i = 0; i < ${#TESTS[@]}; i++)); do
   echo "${TESTS[$i]} ${RUNCOMMANDS[$i]}"
 done
-
-
-
-exit
-
-RUNCOMMANDS=""
-for xml in $XMLFILES
-do
-    RUNCOMMANDS="$RUNCOMMANDS hist2workspace $xml;"
-done
-for script in $PYTHONSCRIPTS
-do
-    RUNCOMMANDS="$RUNCOMMANDS python scripts/$script; "
-done
-for script in $CPPSCRIPTS
-do
-    RUNCOMMANDS="$RUNCOMMANDS root -b scripts/$script++; "
-done
-
-IFS=';' read -ra ADDR <<< "$RUNCOMMANDS"
-for i in "${ADDR[@]}"; do
-    echo $i
-done
-
-
-exit
-
-
-
 
 exit
 
