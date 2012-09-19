@@ -4,7 +4,6 @@ ROOTVERSIONS="root-roostats-git root-roostats-branch root-5.34.01-tag" # root-5.
 
 # The Tests to run
 XMLFILES="example example_Expression example_params example_Ultimate example_ShapeSys example_ShapeSys2D"
-#XMLFILES="example"
 PYTHONSCRIPTS="example"
 CPPSCRIPTS="example"
 
@@ -63,16 +62,19 @@ do
 
 	echo "Running Test: ${TESTS[$i]} with ROOT version ${build}"
 	source /usr/local/root_versions/${build}/bin/thisroot.sh
-	#/usr/local/root_versions/${build}/bin/hist2workspace config/${version}.xml 2>&1 | tee logs/${build}_${version}.log 
-	#hist2workspace config/${TESTS[$i]}.xml 2>&1 | tee logs/${build}_${TESTS[$i]}.log 
 	${RUNCOMMANDS[$i]}  2>&1 | tee logs/${build}_${TESTS[$i]}.log 
+
 	# Now, get the reduced version of the log
+	# We are only interested in the fit output
 	sed -n '/**MIGRAD/,/**MINOS:/p' logs/${build}_${TESTS[$i]}.log >logs/${build}_${TESTS[$i]}_reduced.log
     done
 done
 
 # Create a summary file for the tests
-SUMMARY=tests/Summary.txt
+SUMMARY=Summary.txt
+DIFFDIRECTORY='diff'
+mkdir -p ${DIFFDIRECTORY}
+
 echo "Summary:" >${SUMMARY}
 
 # Now, do the tests
@@ -99,7 +101,11 @@ do
 	    else
 		echo "Failed Test for ${version}: $buildA $buildB"
 		echo "Failed Test for ${version}: $buildA $buildB" >>${SUMMARY}
-		echo "${DIFF}" >tests/diff_${buildA}_${buildB}_${version}.log
+		echo -e "\n DIFF:" >>${SUMMARY}
+		echo "${DIFF}" >>${SUMMARY}
+		echo -e "\n" >>${SUMMARY}
+		# And log to the diff file
+		echo "${DIFF}" >${DIFFDIRECTORY}/diff_${buildA}_${buildB}_${version}.log
 	    fi
 	done
     done
