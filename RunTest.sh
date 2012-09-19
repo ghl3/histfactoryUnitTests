@@ -54,6 +54,7 @@ do
 done
 
 # Create the logs
+mkdir -p logs
 for build in $ROOTVERSIONS
 do
     #for version in $TESTS
