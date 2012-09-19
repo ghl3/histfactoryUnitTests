@@ -1,0 +1,35 @@
+<!--
+//============================================================================
+// Name        : example.xml
+//============================================================================
+-->
+
+<!--
+    Top-level configuration,  details for the example channel are in example_channel.xml.
+    This is the input file to the executable.
+
+    Note: Config.dtd needs to be accessible.  It can be found in ROOT release area.  
+    The file system path is relative to location of this XML file, not the executable.
+-->
+
+<!DOCTYPE Combination  SYSTEM 'HistFactorySchema.dtd'>
+
+<Combination OutputFilePrefix="./results/example_Ultimate" >
+
+  <Function Name="rootPOIA" Expression="sqrt(SigXsecOverSM)" Dependents="SigXsecOverSM[0,3]" />
+  <Function Name="rootPOIB" Expression="sqrt(SigXsecOverSM)" Dependents="SigXsecOverSM[0,3]" />
+
+
+  <Input>./config/example_Ultimate_channelA.xml</Input>
+  <Input>./config/example_Ultimate_channelB.xml</Input>
+
+
+  <Measurement Name="MeasurementA" Lumi="1." LumiRelErr="0.1" >
+    <POI>SigXsecOverSM</POI>
+    <ParamSetting Const="True">alpha_const</ParamSetting>
+    <ConstraintTerm Type="LogNormal" RelativeUncertainty=".3">overallSyst1</ConstraintTerm>
+    <!-- don't need <ConstraintTerm> default is Gaussian-->
+  </Measurement>
+
+
+</Combination>
