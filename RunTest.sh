@@ -71,8 +71,8 @@ do
 done
 
 # Create a summary file for the tests
-SUMMARY=Summary.txt
-DIFFDIRECTORY='diff'
+SUMMARY=Summary.log
+DIFFDIRECTORY='diffs'
 mkdir -p ${DIFFDIRECTORY}
 
 echo "Summary:" >${SUMMARY}
