@@ -1,9 +1,10 @@
 
 # The root versions to compare
-ROOTVERSIONS="root-roostats-git root-roostats-branch root-trunk"
+ROOTVERSIONS="root-roostats-git root-roostats-branch root-5.34.01-tag" # root-5.32.00-patches root-trunk
 
 # The Tests to run
 XMLFILES="example example_Expression example_params example_Ultimate example_ShapeSys example_ShapeSys2D"
+#XMLFILES="example"
 PYTHONSCRIPTS="example"
 CPPSCRIPTS="example"
 
@@ -34,11 +35,11 @@ do
 done
 for script in $PYTHONSCRIPTS
 do
-    RUNCOMMANDS+=("python scripts/${script}.py")
+    RUNCOMMANDS+=("python scripts/${script}.py -b")
 done
 for script in $CPPSCRIPTS
 do
-    RUNCOMMANDS+=("root -b scripts/${script}.C++")
+    RUNCOMMANDS+=("root.exe -q -b scripts/${script}.C++")
 done
 
 
@@ -52,14 +53,14 @@ do
     echo $version
 done
 
-exit
-
 # Create the logs
 for build in $ROOTVERSIONS
 do
     #for version in $TESTS
-    for ((i = 0; i < ${#TESTS[@]}; i++)); do
+    for ((i = 0; i < ${#TESTS[@]}; i++))
     do
+
+	echo "Running Test: ${TESTS[$i]} with ROOT version ${build}"
 	source /usr/local/root_versions/${build}/bin/thisroot.sh
 	#/usr/local/root_versions/${build}/bin/hist2workspace config/${version}.xml 2>&1 | tee logs/${build}_${version}.log 
 	#hist2workspace config/${TESTS[$i]}.xml 2>&1 | tee logs/${build}_${TESTS[$i]}.log 
