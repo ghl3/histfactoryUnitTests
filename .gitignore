@@ -1,3 +1,7 @@
 *.so
 *.d
 *.pyc
+logs/*
+diffs/*
+backup/*
+results/*

@@ -2,8 +2,9 @@
 # The root versions to compare
 ROOTVERSIONS="root-roostats-git root-roostats-branch root-5.34.01-tag" # root-5.32.00-patches root-trunk
 
-# The Tests to run
-XMLFILES="example example_Expression example_params example_Ultimate example_ShapeSys example_ShapeSys2D"
+1;2c# The Tests to run
+#XMLFILES="example example_Expression example_params example_Ultimate example_ShapeSys example_ShapeSys2D examples/example_DataDriven"
+XMLFILES="examples/example_DataDriven"
 PYTHONSCRIPTS="example"
 CPPSCRIPTS="example"
 
@@ -41,17 +42,6 @@ do
     RUNCOMMANDS+=("root.exe -q -b scripts/${script}.C++")
 done
 
-
-# The example loop over test names and commands
-for ((i = 0; i < ${#TESTS[@]}; i++)); do
-  echo "${TESTS[$i]} ${RUNCOMMANDS[$i]}"
-done
-
-for version in "${TESTS[@]}"
-do
-    echo $version
-done
-
 # Create the logs
 mkdir -p logs
 for build in $ROOTVERSIONS
@@ -60,15 +50,17 @@ do
     for ((i = 0; i < ${#TESTS[@]}; i++))
     do
 
-	echo "Running Test: ${TESTS[$i]} with ROOT version ${build}"
+	TESTNAME=`basename ${TESTS[$i]}`
+	echo "Running Test: ${TESTNAME} with ROOT version ${build}"
 	source /usr/local/root_versions/${build}/bin/thisroot.sh
-	${RUNCOMMANDS[$i]}  2>&1 | tee logs/${build}_${TESTS[$i]}.log 
+	${RUNCOMMANDS[$i]}  2>&1 | tee logs/${build}_${TESTNAME}.log 
 
 	# Now, get the reduced version of the log
 	# We are only interested in the fit output
-	sed -n '/**MIGRAD/,/**MINOS:/p' logs/${build}_${TESTS[$i]}.log >logs/${build}_${TESTS[$i]}_reduced.log
+	sed -n '/**MIGRAD/,/**MINOS:/p' logs/${build}_${TESTNAME}.log >logs/${build}_${TESTNAME}_reduced.log
     done
 done
+
 
 # Create a summary file for the tests
 SUMMARY=Summary.log
@@ -89,23 +81,25 @@ do
 	fi
 
 	#for version in $TESTS
-	for version in $TESTS "${TESTS[@]}"
+	#for version in $TESTS "${TESTS[@]}"
+	for version in ${TESTS[@]}
 	do
-	    logA=logs/${buildA}_${version}_reduced.log
-	    logB=logs/${buildB}_${version}_reduced.log
+	    TESTNAME=`basename ${version}`
+	    logA=logs/${buildA}_${TESTNAME}_reduced.log
+	    logB=logs/${buildB}_${TESTNAME}_reduced.log
 	    DIFF=$(diff -b -B $logA $logB)
 	    if [ "$DIFF" = "" ]
 	    then
-		echo "Passed Test for ${version}: $buildA $buildB"
-		echo "Passed Test for ${version}: $buildA $buildB" >>${SUMMARY}
+		echo "Passed Test for ${TESTNAME}: $buildA $buildB"
+		echo "Passed Test for ${TESTNAME}: $buildA $buildB" >>${SUMMARY}
 	    else
-		echo "Failed Test for ${version}: $buildA $buildB"
-		echo "Failed Test for ${version}: $buildA $buildB" >>${SUMMARY}
+		echo "Failed Test for ${TESTNAME}: $buildA $buildB"
+		echo "Failed Test for ${TESTNAME}: $buildA $buildB" >>${SUMMARY}
 		echo -e "\n DIFF:" >>${SUMMARY}
 		echo "${DIFF}" >>${SUMMARY}
 		echo -e "\n" >>${SUMMARY}
 		# And log to the diff file
-		echo "${DIFF}" >${DIFFDIRECTORY}/diff_${buildA}_${buildB}_${version}.log
+		echo "${DIFF}" >${DIFFDIRECTORY}/diff_${buildA}_${buildB}_${TESTNAME}.log
 	    fi
 	done
     done
