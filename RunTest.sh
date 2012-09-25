@@ -1,10 +1,11 @@
 
 # The root versions to compare
-ROOTVERSIONS="root-roostats-git root-roostats-branch root-5.34.01-tag" # root-5.32.00-patches root-trunk
+#ROOTVERSIONS="root-roostats-git root-roostats-branch root-5.34.01-tag" # root-5.32.00-patches root-trunk
+ROOTVERSIONS="root-roostats-git root-5.34.01-tag" # root-5.32.00-patches root-trunk
 
-1;2c# The Tests to run
+# The Tests to run
 #XMLFILES="example example_Expression example_params example_Ultimate example_ShapeSys example_ShapeSys2D examples/example_DataDriven"
-XMLFILES="examples/example_DataDriven"
+XMLFILES="example example_params example_Ultimate example_ShapeSys example_ShapeSys2D examples/example_DataDriven"
 PYTHONSCRIPTS="example"
 CPPSCRIPTS="example"
 
@@ -53,7 +54,15 @@ do
 	TESTNAME=`basename ${TESTS[$i]}`
 	echo "Running Test: ${TESTNAME} with ROOT version ${build}"
 	source /usr/local/root_versions/${build}/bin/thisroot.sh
-	${RUNCOMMANDS[$i]}  2>&1 | tee logs/${build}_${TESTNAME}.log 
+
+	# Run the command (and time it)
+	LOGNAME=logs/${build}_${TESTNAME}.log
+	BEGIN=`perl -MTime::HiRes -e 'print int(1000 * Time::HiRes::gettimeofday),"\n"'`
+	${RUNCOMMANDS[$i]}  2>&1 | tee $LOGNAME 
+	END=`perl -MTime::HiRes -e 'print int(1000 * Time::HiRes::gettimeofday),"\n"'`
+	DIFF=`expr $END - $BEGIN`
+	echo "Time: $DIFF (ms)"
+	echo "Time: $DIFF (ms)" >>$LOGNAME
 
 	# Now, get the reduced version of the log
 	# We are only interested in the fit output
