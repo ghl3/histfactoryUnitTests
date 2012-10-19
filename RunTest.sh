@@ -5,9 +5,11 @@ ROOTVERSIONS="root-roostats-git root-5.34.01-tag" # root-5.32.00-patches root-tr
 
 # The Tests to run
 #XMLFILES="example example_Expression example_params example_Ultimate example_ShapeSys example_ShapeSys2D examples/example_DataDriven"
-XMLFILES="example example_params example_Ultimate example_ShapeSys example_ShapeSys2D examples/example_DataDriven"
-PYTHONSCRIPTS="example"
-CPPSCRIPTS="example"
+#XMLFILES="example example_params example_Ultimate example_ShapeSys example_ShapeSys2D examples/example_DataDriven"
+XMLFILES="example"
+#PYTHONSCRIPTS="example"
+#CPPSCRIPTS="example"
+CPPSCRIPTS="asimov"
 
 #
 # The rest is done automatically
@@ -57,16 +59,20 @@ do
 
 	# Run the command (and time it)
 	LOGNAME=logs/${build}_${TESTNAME}.log
+
+
 	BEGIN=`perl -MTime::HiRes -e 'print int(1000 * Time::HiRes::gettimeofday),"\n"'`
 	${RUNCOMMANDS[$i]}  2>&1 | tee $LOGNAME 
 	END=`perl -MTime::HiRes -e 'print int(1000 * Time::HiRes::gettimeofday),"\n"'`
 	DIFF=`expr $END - $BEGIN`
-	echo "Time: $DIFF (ms)"
-	echo "Time: $DIFF (ms)" >>$LOGNAME
 
 	# Now, get the reduced version of the log
 	# We are only interested in the fit output
 	sed -n '/**MIGRAD/,/**MINOS:/p' logs/${build}_${TESTNAME}.log >logs/${build}_${TESTNAME}_reduced.log
+
+	echo "Time: $DIFF (ms)"
+	echo "Time: $DIFF (ms)" >>$LOGNAME
+
     done
 done
 

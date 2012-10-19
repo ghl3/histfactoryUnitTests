@@ -42,7 +42,7 @@ TH1* CreateGaussian( std::string name, int bins, int mean, int width, int height
 }
 
 
-void LongFit() {
+void TimingTest() {
 
   // Remove a LOT of ROOT crap
   TH1::AddDirectory(kFALSE);
