@@ -1,0 +1,17 @@
+<!--
+
+
+-->
+<!DOCTYPE Combination  SYSTEM 'HistFactorySchema.dtd'>
+
+<Combination OutputFilePrefix="./results/example_DataDriven"  >
+
+  <Input>./config/ParamHistFunc2D_signalRegion.xml</Input>
+  <Input>./config/ParamHistFunc2D_controlRegion.xml</Input>
+
+  <Measurement Name="ParamHistFunc2D" Lumi="1." LumiRelErr="0.1" ExportOnly="False" >
+    <POI>SigXsecOverSM</POI>
+    <ParamSetting Const="True">Lumi alpha_syst1  </ParamSetting>
+  </Measurement>
+
+</Combination>

@@ -5,11 +5,11 @@ ROOTVERSIONS="root-roostats-git root-5.34.01-tag" # root-5.32.00-patches root-tr
 
 # The Tests to run
 #XMLFILES="example example_Expression example_params example_Ultimate example_ShapeSys example_ShapeSys2D examples/example_DataDriven"
-#XMLFILES="example example_params example_Ultimate example_ShapeSys example_ShapeSys2D examples/example_DataDriven"
-XMLFILES="example"
-#PYTHONSCRIPTS="example"
-#CPPSCRIPTS="example"
-CPPSCRIPTS="asimov"
+XMLFILES="example example_params example_Ultimate example_ShapeSys example_ShapeSys2D examples/example_DataDriven"
+#XMLFILES="example"
+PYTHONSCRIPTS="example"
+CPPSCRIPTS="example asimov ParamHistFunc ParamHistFunc2D"
+
 
 #
 # The rest is done automatically
