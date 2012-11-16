@@ -6,9 +6,9 @@ ROOTVERSIONS="root-roostats-git root-roostats-branch root-5.34.02-tag" # root-5.
 # The Tests to run
 #XMLFILES="example example_Expression example_params example_Ultimate example_ShapeSys example_ShapeSys2D examples/example_DataDriven"
 #XMLFILES="example example_params example_Ultimate example_ShapeSys example_ShapeSys2D examples/example_DataDriven"
-XMLFILES="example"
+XMLFILES="top/top_dilep"
 #XMLFILES="example"
-PYTHONSCRIPTS="example"
+#PYTHONSCRIPTS="example"
 #CPPSCRIPTS="example asimov ParamHistFunc ParamHistFunc2D"
 
 
