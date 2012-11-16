@@ -1,0 +1,68 @@
+<!--
+//============================================================================
+// Name        : mumu.xml
+// Author      : Akira Shibata <akira.shibata@cern.ch> and Kyle Cranmer <cranmer@cern.ch>
+// Version     :
+// Copyright   : Open source
+// Description : 
+//============================================================================
+-->
+
+<!--
+    Configuration for the mumu channel. Should be self-evident
+    NormalizedByTheory should be "True" (not "TRUE" or "true") for all non-data-driven background
+-->
+
+
+<!DOCTYPE Channel  SYSTEM 'HistFactorySchema.dtd'>
+
+  <Channel Name="mumu" InputFile="./data/Histograms.root" HistoName="Jet_N_2_2i_20GeV">
+
+    <Data HistoName="Jet_N_2_2i_20GeV" HistoPath="mumu/Data/default/"/>
+
+    <Sample Name="tbart" HistoName="Jet_N_2_2i_20GeV" HistoPath="mumu/tbart/default/">
+      <HistoSys Name="jes" HistoNameHigh="Jet_N_2_2i_20GeV" HistoPathHigh="mumu/tbart/jes_plus_half/" HistoNameLow="Jet_N_2_2i_20GeV" HistoPathLow="mumu/tbart/jes_minus_half/"/>
+      <HistoSys Name="mes" HistoNameHigh="Jet_N_2_2i_20GeV" HistoPathHigh="mumu/tbart/mes_plus/" HistoNameLow="Jet_N_2_2i_20GeV" HistoPathLow="mumu/tbart/mes_minus/"/>
+      <HistoSys Name="isrfsr" HistoNameHigh="Jet_N_2_2i_20GeV" HistoPathHigh="mumu/tbart/isrfsr_plus/" HistoNameLow="Jet_N_2_2i_20GeV" HistoPathLow="mumu/tbart/isrfsr_minus/"/>
+      <OverallSys Name="model" High="1.05" Low="0.95"/>
+      <OverallSys Name="MuonEff" Low="0.96" High="1.04"/>
+      <OverallSys Name="PDF" Low="0.985" High="1.015"/>
+      <NormFactor Name="SigXsecOverSM" Val="1" Low="0.5" High="1.8" Const="True" />
+    </Sample>
+
+    <Sample Name="SingleTop" HistoName="Jet_N_2_2i_20GeV" HistoPath="mumu/SingleTop/default/" NormalizeByTheory="True">
+      <HistoSys Name="jes" HistoNameHigh="Jet_N_2_2i_20GeV" HistoPathHigh="mumu/SingleTop/jes_plus_half/" HistoNameLow="Jet_N_2_2i_20GeV" HistoPathLow="mumu/SingleTop/jes_minus_half/"/>
+      <HistoSys Name="mes" HistoNameHigh="Jet_N_2_2i_20GeV" HistoPathHigh="mumu/SingleTop/mes_plus/" HistoNameLow="Jet_N_2_2i_20GeV" HistoPathLow="mumu/SingleTop/mes_minus/"/>
+      <OverallSys Name="jes" Low="0.85" High="1.15"/>
+      <OverallSys Name="MuonEff" Low="0.96" High="1.04"/>
+      <OverallSys Name="Xsec" Low="0.92" High="1.08"/>
+    </Sample>
+
+    <Sample Name="Diboson" HistoName="Jet_N_2_2i_20GeV" HistoPath="mumu/Diboson/default/" NormalizeByTheory="True">
+      <!--<HistoSys Name="jes" HistoPathHigh="mumu/Diboson/jes_plus_half/" HistoPathLow="mumu/Diboson/jes_minus_half/"/>-->
+      <HistoSys Name="mes" HistoNameHigh="Jet_N_2_2i_20GeV" HistoPathHigh="mumu/Diboson/mes_plus/" HistoNameLow="Jet_N_2_2i_20GeV" HistoPathLow="mumu/Diboson/mes_minus/"/>
+      <OverallSys Name="jes" Low="0.9" High="1.10"/>
+      <OverallSys Name="MuonEff" Low="0.96" High="1.04"/>
+      <OverallSys Name="Xsec" Low="0.95" High="1.05"/>
+    </Sample>
+
+    <Sample Name="Zll" HistoName="Jet_N_2_2i_20GeV" HistoPath="mumu/Zll/default/" NormalizeByTheory="False">
+      <HistoSys Name="mes" HistoNameHigh="Jet_N_2_2i_20GeV" HistoPathHigh="mumu/Zll/mes_plus/" HistoNameLow="Jet_N_2_2i_20GeV" HistoPathLow="mumu/Zll/mes_minus/"/>
+      <OverallSys Name="MuonEff" Low="0.96" High="1.04"/>
+      <OverallSys Name="DY_mumu" Low="0.85" High="1.15"/>
+    </Sample>
+
+    <Sample Name="Ztautau" HistoName="Jet_N_2_2i_20GeV" HistoPath="mumu/Ztautau/default/" NormalizeByTheory="False">
+      <HistoSys Name="mes" HistoNameHigh="Jet_N_2_2i_20GeV" HistoPathHigh="mumu/Ztautau/mes_plus/" HistoNameLow="Jet_N_2_2i_20GeV" HistoPathLow="mumu/Ztautau/mes_minus/"/>
+      <OverallSys Name="DY_ee" Low="0.85" High="1.15"/>
+      <OverallSys Name="MuonEff" Low="0.96" High="1.04"/>
+    </Sample>
+
+    <Sample Name="Fake" HistoName="Jet_N_2_2i_20GeV" HistoPath="mumu/Fake/default/" NormalizeByTheory="False">
+      <OverallSys Name="FakeRate" Low="0.5" High="1.5"/>
+      <OverallSys Name="MuonEff" Low="0.98" High="1.02"/>
+
+    </Sample>
+
+  </Channel>
+

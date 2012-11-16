@@ -1,0 +1,71 @@
+<!--
+//============================================================================
+// Name        : ee.xml
+// Author      : Akira Shibata <akira.shibata@cern.ch> and Kyle Cranmer <cranmer@cern.ch>
+// Version     :
+// Copyright   : Open source
+// Description : 
+//============================================================================
+-->
+
+<!--
+    Configuration for the ee channel. Should be mainly self-explanatory.
+    NormalizedByTheory should be "True" (not "TRUE" or "true") for all non-data-driven background
+-->
+
+<!DOCTYPE Channel  SYSTEM 'HistFactorySchema.dtd'>
+
+  <Channel Name="ee" InputFile="./data/Histograms.root" HistoName="Jet_N_2_2i_20GeV" >
+
+    <Data HistoName="Jet_N_2_2i_20GeV" HistoPath="ee/Data/default/" />
+
+    <Sample Name="tbart"  HistoName="Jet_N_2_2i_20GeV" HistoPath="ee/tbart/default/">
+      <HistoSys Name="jes" HistoNameHigh="Jet_N_2_2i_20GeV" HistoPathHigh="ee/tbart/jes_plus_half/" HistoNameLow="Jet_N_2_2i_20GeV" HistoPathLow="ee/tbart/jes_minus_half/"/>
+      <HistoSys Name="ees" HistoNameHigh="Jet_N_2_2i_20GeV" HistoPathHigh="ee/tbart/ees_plus/" HistoNameLow="Jet_N_2_2i_20GeV" HistoPathLow="ee/tbart/ees_minus/"/>
+      <HistoSys Name="isrfsr" HistoNameHigh="Jet_N_2_2i_20GeV" HistoPathHigh="ee/tbart/isrfsr_plus/" HistoNameLow="Jet_N_2_2i_20GeV" HistoPathLow="ee/tbart/isrfsr_minus/"/>
+      <OverallSys Name="model" High="1.05" Low="0.95"/>
+      <OverallSys Name="EleEff" Low="0.96" High="1.04"/>
+      <OverallSys Name="PDF" Low="0.978" High="1.022"/>
+      <NormFactor Name="SigXsecOverSM" Val="1" Low="0.5" High="1.8" Const="True" />
+    </Sample>
+
+    <Sample Name="SingleTop" HistoName="Jet_N_2_2i_20GeV" HistoPath="ee/SingleTop/default/" NormalizeByTheory="True">
+      <!--<HistoSys Name="jes" HistoPathHigh="ee/SingleTop/jes_plus_half/" HistoPathLow="ee/SingleTop/jes_minus_half/"/>-->
+     <!-- <HistoSys Name="ees" HistoPathHigh="ee/SingleTop/ees_plus/" HistoPathLow="ee/SingleTop/ees_minus/"/> -->
+      <OverallSys Name="jes" Low=".89" High="1.03"/>
+    <OverallSys Name="EleEff" Low="0.96" High="1.04"/>
+      <OverallSys Name="ees" Low="0.96" High="1.07"/> 
+      <OverallSys Name="Xsec" Low="0.9" High="1.1"/>
+    </Sample>
+
+    <Sample Name="Diboson" HistoName="Jet_N_2_2i_20GeV" HistoPath="ee/Diboson/default/" NormalizeByTheory="True">
+      <!-- <HistoSys Name="ees" HistoPathHigh="ee/Diboson/ees_plus/" HistoPathLow="ee/Diboson/ees_minus/"/> -->
+      <!-- <HistoSys Name="jes" HistoPathHigh="ee/Diboson/jes_plus_half/" HistoPathLow="ee/Diboson/jes_minus_half/"/> -->
+      <OverallSys Name="jes" Low="0.86" High="1.25"/>
+      <OverallSys Name="EleEff" Low="0.96" High="1.04"/>
+      <OverallSys Name="Xsec" Low="0.90" High="1.1"/>
+    </Sample>
+
+    <Sample Name="Zll" HistoName="Jet_N_2_2i_20GeV" HistoPath="ee/Zll/default/" NormalizeByTheory="False">
+   <!--   <HistoSys Name="ees" HistoPathHigh="ee/Zll/ees_plus/" HistoPathLow="ee/Zll/ees_minus/"/> -->
+    <OverallSys Name="jes" Low="0.91" High="1.56"/>
+      <OverallSys Name="met" Low="0.77" High="1.4"/>
+<!--  <OverallSys Name="DY_ee" Low="0.64" High="1.36"/> --> 
+<!--  <OverallSys Name="EleEff" Low="0.96" High="1.04"/> -->
+    </Sample>
+
+    <Sample Name="Ztautau" HistoName="Jet_N_2_2i_20GeV" HistoPath="ee/Ztautau/default/" NormalizeByTheory="False">
+      <!--<HistoSys Name="jes" HistoPathHigh="ee/Ztautau/jes_plus_half/" HistoPathLow="ee/Ztautau/jes_minus_half/"/>-->
+     <!-- <HistoSys Name="ees" HistoPathHigh="ee/Ztautau/ees_plus/" HistoPathLow="ee/Ztautau/ees_minus/"/> -->
+      <OverallSys Name="DY_ee" Low="0.85" High="1.15"/>  
+      <OverallSys Name="EleEff" Low="0.96" High="1.04"/>
+      <OverallSys Name="ees" Low="0.94" High="1.08"/>
+    </Sample>
+
+    <Sample Name="Fake" HistoName="Jet_N_2_2i_20GeV" HistoPath="ee/Fake/default/" NormalizeByTheory="False">
+      <OverallSys Name="FakeRate" Low="0.0" High="2.0"/>
+     <!-- <OverallSys Name="EleEff" Low="0.98" High="1.02"/> -->
+    </Sample>
+
+  </Channel>
+

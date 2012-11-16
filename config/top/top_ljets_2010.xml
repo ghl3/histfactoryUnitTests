@@ -1,0 +1,26 @@
+<!--
+//============================================================================
+// Name        : example.xml
+//============================================================================
+-->
+
+<!--
+    Configuration for the ee channel. Should be mainly self-explanatory.
+    NormalizedByTheory should be "True" (not "TRUE" or "true") for all non-data-driven background
+-->
+
+<!DOCTYPE Combination  SYSTEM 'HistFactorySchema.dtd' >
+
+<Combination OutputFilePrefix="./results/dilep_ee" >
+
+  <Input>./config/top/ee.xml</Input>
+  <!--
+  <Input>./config/top/emu.xml</Input>
+  <Input>./config/top/mumu.xml</Input>
+  -->
+  <Measurement Name="allsys" Lumi="1" LumiRelErr="0.11" BinLow="0" BinHigh="1" Mode="comb">
+    <POI>SigXsecOverSM</POI>
+    <ParamSetting Const="True">xS_e xQCD_e xW_HF_e xW_cjets_e xW_LF_e xZ_jets_e xSingleTop_e xS_m xQCD_m xW_HF_m xW_cjets_m xW_LF_m xZ_jets_m xSingleTop_m</ParamSetting>
+  </Measurement>
+
+</Combination>

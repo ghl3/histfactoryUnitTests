@@ -1,0 +1,81 @@
+<!--
+//============================================================================
+// Name        : emu.xml
+// Author      : Akira Shibata <akira.shibata@cern.ch> and Kyle Cranmer <cranmer@cern.ch>
+// Version     :
+// Copyright   : Open source
+// Description : 
+//============================================================================
+-->
+
+<!--
+    Configuration for the emu channel. Should be self-evident
+    NormalizedByTheory should be "True" (not "TRUE" or "true") for all non-data-driven background
+-->
+
+<!DOCTYPE Channel  SYSTEM 'HistFactorySchema.dtd'>
+
+
+  <Channel Name="emu" InputFile="./data/Histograms.root" HistoName="Jet_N_2_2i_20GeV">
+
+    <Data HistoName="Jet_N_2_2i_20GeV" HistoPath="emu/Data/default/"/>
+
+    <Sample Name="tbart" HistoName="Jet_N_2_2i_20GeV" HistoPath="emu/tbart/default/">
+      <HistoSys Name="jes" HistoNameHigh="Jet_N_2_2i_20GeV" HistoPathHigh="emu/tbart/jes_plus_half/" HistoNameLow="Jet_N_2_2i_20GeV" HistoPathLow="emu/tbart/jes_minus_half/"/>
+      <HistoSys Name="mes" HistoNameHigh="Jet_N_2_2i_20GeV" HistoPathHigh="emu/tbart/mes_plus/" HistoNameLow="Jet_N_2_2i_20GeV" HistoPathLow="emu/tbart/mes_minus/"/>
+      <HistoSys Name="ees" HistoNameHigh="Jet_N_2_2i_20GeV" HistoPathHigh="emu/tbart/ees_plus/" HistoNameLow="Jet_N_2_2i_20GeV" HistoPathLow="emu/tbart/ees_minus/"/>
+      <HistoSys Name="isrfsr" HistoNameHigh="Jet_N_2_2i_20GeV" HistoPathHigh="emu/tbart/isrfsr_plus/" HistoNameLow="Jet_N_2_2i_20GeV" HistoPathLow="emu/tbart/isrfsr_minus/"/>
+      <OverallSys Name="model" High="1.05" Low="0.95"/>
+      <OverallSys Name="MuonEff" Low="0.98" High="1.02"/>
+      <OverallSys Name="EleEff" Low="0.98" High="1.02"/>
+      <OverallSys Name="PDF" Low="0.983" High="1.017"/>
+      <NormFactor Name="SigXsecOverSM" Val="1" Low="0.5" High="1.8" Const="True" />
+    </Sample>
+
+    <Sample Name="SingleTop" HistoName="Jet_N_2_2i_20GeV" HistoPath="emu/SingleTop/default/" NormalizeByTheory="True">
+      <!--<HistoSys Name="jes" HistoPathHigh="emu/SingleTop/jes_plus_half/" HistoPathLow="emu/SingleTop/jes_minus_half/"/>-->
+    <!-- <HistoSys Name="mes" HistoPathHigh="emu/SingleTop/mes_plus/" HistoPathLow="emu/SingleTop/mes_minus/"/> -->
+     <!-- <HistoSys Name="ees" HistoPathHigh="emu/SingleTop/ees_plus/" HistoPathLow="emu/SingleTop/ees_minus/"/> -->
+      <OverallSys Name="jes" Low="0.94" High="1.10"/>
+      <OverallSys Name="MuonEff" Low="0.99" High="1.01"/>
+      <OverallSys Name="EleEff" Low="0.98" High="1.02"/>
+      <OverallSys Name="Xsec" Low="0.9" High="1.1"/>
+    </Sample>
+
+    <Sample Name="Diboson" HistoName="Jet_N_2_2i_20GeV" HistoPath="emu/Diboson/default/" NormalizeByTheory="True">
+      <!--<HistoSys Name="jes" HistoPathHigh="emu/Diboson/jes_plus_half/" HistoPathLow="emu/Diboson/jes_minus_half/"/>-->
+     <!-- <HistoSys Name="mes" HistoPathHigh="emu/Diboson/mes_plus/" HistoPathLow="emu/Diboson/mes_minus/"/> -->
+     <!-- <HistoSys Name="ees" HistoPathHigh="emu/Diboson/ees_plus/" HistoPathLow="emu/Diboson/ees_minus/"/> -->
+      <OverallSys Name="jes" Low="0.85" High="1.29"/>
+      <OverallSys Name="MuonEff" Low="0.99" High="1.01"/>
+      <OverallSys Name="EleEff" Low="0.98" High="1.02"/>
+      <OverallSys Name="Xsec" Low="0.9" High="1.1"/>
+    </Sample>
+<!--
+    <Sample Name="Zll" HistoPath="emu/Zll/default/" NormalizeByTheory="False">
+      <HistoSys Name="mes" HistoPathHigh="emu/Zll/mes_plus/" HistoPathLow="emu/Zll/mes_minus/"/>
+      <HistoSys Name="ees" HistoPathHigh="emu/Zll/ees_plus/" HistoPathLow="emu/Zll/ees_minus/"/>
+      <OverallSys Name="Xsec" Low="0.95" High="1.05"/>
+      <OverallSys Name="MuonEff" Low="0.98" High="1.02"/>
+      <OverallSys Name="EleEff" Low="0.98" High="1.02"/>
+    </Sample>
+-->    
+
+  <Sample Name="Ztautau" HistoName="Jet_N_2_2i_20GeV" HistoPath="emu/Ztautau/default/" NormalizeByTheory="False">
+      <!--<HistoSys Name="jes" HistoPathHigh="emu/Ztautau/jes_plus_half/" HistoPathLow="emu/Ztautau/jes_minus_half/"/>-->
+    <!--  <HistoSys Name="mes" HistoPathHigh="emu/Ztautau/mes_plus/" HistoPathLow="emu/Ztautau/mes_minus/"/> -->
+    <!--  <HistoSys Name="ees" HistoPathHigh="emu/Ztautau/ees_plus/" HistoPathLow="emu/Ztautau/ees_minus/"/> -->
+      <OverallSys Name="jes" Low="1.00" High="1.1"/>
+      <OverallSys Name="DY_ee" Low="0.85" High="1.15"/>
+      <OverallSys Name="MuonEff" Low="0.98" High="1.02"/>
+      <OverallSys Name="EleEff" Low="0.98" High="1.02"/>
+      <OverallSys Name="Xsec" Low="0.98" High="1.02"/>
+    </Sample>
+
+    <Sample Name="Fake" HistoName="Jet_N_2_2i_20GeV" HistoPath="emu/Fake/default/" NormalizeByTheory="False">
+      <OverallSys Name="FakeRate" Low="0.0" High="2.0"/>
+      <OverallSys Name="EleEff" Low="0.98" High="1.02"/>
+    </Sample>
+
+  </Channel>
+

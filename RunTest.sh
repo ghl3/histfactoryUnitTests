@@ -1,14 +1,15 @@
 
 # The root versions to compare
 #ROOTVERSIONS="root-roostats-git root-roostats-branch root-5.34.01-tag" # root-5.32.00-patches root-trunk
-ROOTVERSIONS="root-roostats-git root-5.34.01-tag" # root-5.32.00-patches root-trunk
+ROOTVERSIONS="root-roostats-git root-roostats-branch root-5.34.02-tag" # root-5.32.00-patches root-trunk
 
 # The Tests to run
 #XMLFILES="example example_Expression example_params example_Ultimate example_ShapeSys example_ShapeSys2D examples/example_DataDriven"
-XMLFILES="example example_params example_Ultimate example_ShapeSys example_ShapeSys2D examples/example_DataDriven"
+#XMLFILES="example example_params example_Ultimate example_ShapeSys example_ShapeSys2D examples/example_DataDriven"
+XMLFILES="example"
 #XMLFILES="example"
 PYTHONSCRIPTS="example"
-CPPSCRIPTS="example asimov ParamHistFunc ParamHistFunc2D"
+#CPPSCRIPTS="example asimov ParamHistFunc ParamHistFunc2D"
 
 
 #
